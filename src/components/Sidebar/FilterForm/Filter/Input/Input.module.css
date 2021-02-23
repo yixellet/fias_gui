@@ -1,0 +1,12 @@
+.input {
+  width: 10px;
+  height: 10px;
+  margin: 0 10px 0 0;
+}
+
+.label {
+  font-family: Roboto;
+  font-size: .9rem;
+  position: relative;
+  top: -2px;
+}

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  padding: 0 0 20px 0;
+  border-bottom: solid 1px rgb(185, 185, 185);
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-family: Roboto;
+  font-size: 1rem;
+}
+
+.submit {
+  padding: 7px;
+  margin: 10px 0 0 0;
+  height: auto;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: rgb(43, 146, 106);
+  color: #fff;
+  border: none;
+}

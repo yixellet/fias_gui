@@ -8,7 +8,7 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <FormContainer children={<ViewForm />} name="Показать" />
+        <FormContainer children={<ViewForm />} name="Показать" onFormSubmit={this.props.onChooseLevel} />
         <FormContainer children={<FilterForm />} name="Фильтр" />
       </div>
     );

@@ -1,5 +1,5 @@
 .container {
-  width: 25vw;
+  width: 20vw;
   height: calc(100vh - 80px);
   position: fixed;
   border-right: solid 1px rgb(185, 185, 185);

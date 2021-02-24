@@ -1,15 +1,19 @@
 import React from 'react';
-import FormContainer from './FormContainer/FormContainer';
-import ViewForm from './ViewForm/ViewForm';
 import FilterForm from './FilterForm/FilterForm';
+import Filter from './Filter/Filter';
 import styles from './Sidebar.module.css';
 
 class Sidebar extends React.Component {
+
   render() {
     return (
       <div className={styles.container}>
-        <FormContainer children={<ViewForm />} name="Показать" onFormSubmit={this.props.onChooseLevel} />
-        <FormContainer children={<FilterForm />} name="Фильтр" />
+        <FilterForm api={this.props.api} getData={this.props.getData} setFetching={this.props.setFetching} />
+        {
+          this.props.level === '5' || this.props.level === '6' ?
+          <Filter /> :
+          null
+        }
       </div>
     );
   }

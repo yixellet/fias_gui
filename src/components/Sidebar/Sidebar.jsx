@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
       <div className={styles.container}>
         <FilterForm api={this.props.api} getData={this.props.getData} setFetching={this.props.setFetching} />
         {
-          this.props.level === '5' || this.props.level === '6' ?
+          this.props.level === '4' || this.props.level === '5' || this.props.level === '6' ?
           <Filter /> :
           null
         }

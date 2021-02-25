@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import Content from '../Content/Content';
 import IsFetching from '../Content/IsFetching/IsFetching';
-import StreetTable from '../Content/StreetTable/StreetTable';
+import Table from '../Content/Table/Table';
 
 import styles from './App.module.css';
 
@@ -14,6 +14,7 @@ class App extends React.Component {
       isFetching: false,
       level: 2,
       data: [],
+      columns: [],
     }
     this.getData = this.getData.bind(this);
     this.setFetching = this.setFetching.bind(this);
@@ -22,6 +23,7 @@ class App extends React.Component {
   getData(data, level) {
     this.setState({
       data: data,
+      columns: Object.keys(data[0]),
       level: level,
     })
   }
@@ -36,7 +38,7 @@ class App extends React.Component {
         <Header />
         <main className={styles.container}>
           <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} level={this.state.level} />
-          <Content children={this.state.isFetching ? <IsFetching /> : <StreetTable data={this.state.data} />} />
+          <Content children={this.state.isFetching ? <IsFetching /> : (this.state.data ? <Table data={this.state.data} columns={this.state.columns} /> : null)} />
         </main>
       </>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Input.module.css';
+import styles from './CheckboxInput.module.css';
 
-class Input extends React.Component {
+class CheckboxInput extends React.Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+export default CheckboxInput;

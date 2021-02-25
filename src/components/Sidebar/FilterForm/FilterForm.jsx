@@ -34,6 +34,7 @@ class FormContainer extends React.Component {
         <fieldset className={styles.fieldset}>
           <legend className={styles.title}>{this.props.name}Показать:</legend>
           <RadioInput id="2" label="Районы" name="level" onInputChange={this.handleInputChange} />
+          <RadioInput id="4" label="Муниципальные образования" name="level" onInputChange={this.handleInputChange} />
           <RadioInput id="5" label="Города" name="level" onInputChange={this.handleInputChange} />
           <RadioInput id="6" label="Прочие населенные пункты" name="level" onInputChange={this.handleInputChange} />
           <RadioInput id="7" label="Территории" name="level" onInputChange={this.handleInputChange} />

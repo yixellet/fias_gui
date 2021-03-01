@@ -9,7 +9,7 @@ class RadioInput extends React.Component {
           className={styles.input} 
           type="radio"
           id={this.props.id} 
-          name={this.props.name} 
+          name='viewfilter' 
           value={this.props.id} />
           <label className={styles.label} 
           htmlFor={this.props.id}>{this.props.label}</label>

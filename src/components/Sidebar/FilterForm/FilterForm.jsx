@@ -13,6 +13,7 @@ class FormContainer extends React.Component {
   }
 
   handleInputChange(event) {
+    
     this.setState({
       level: event.target.value,
     })
@@ -21,11 +22,19 @@ class FormContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.setFetching(true);
-    this.props.api.getDistricts(this.state.level)
-      .then((data) => {
-        this.props.getData(data.data, this.state.level)
-        this.props.setFetching(false)
+    if (['1', '2', '3', '4', '5', '6', '7', '8', '8'].indexOf(this.state.level) !== -1) {
+      this.props.api.getDistricts(this.state.level)
+        .then((data) => {
+          this.props.getData(data.data, this.state.level)
+          this.props.setFetching(false)
+        })
+    } else if (this.state.level === '9') {
+      this.props.api.getSteads()
+        .then((data) => {
+          this.props.getData(data.data, this.state.level)
+          this.props.setFetching(false)
       })
+    }
   }
 
   render() {
@@ -33,16 +42,11 @@ class FormContainer extends React.Component {
       <form className={styles.container} onSubmit={this.handleSubmit}>
         <fieldset className={styles.fieldset}>
           <legend className={styles.title}>{this.props.name}Показать:</legend>
-          <RadioInput id="2" label="Районы" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="4" label="Муниципальные образования" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="5" label="Города" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="6" label="Прочие населенные пункты" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="7" label="Территории" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="8" label="Улицы" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="9" label="Земельные участки" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="10" label="Здания" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="11" label="Помещения" name="level" onInputChange={this.handleInputChange} />
-          <RadioInput id="12" label="Комнаты" name="level" onInputChange={this.handleInputChange} />
+          {
+            this.props.levels.map((level) => {
+              return (<RadioInput id={level.level} label={level.name} onInputChange={this.handleInputChange} key={level.level} />)
+            })
+          }
         </fieldset>
         <div>
           <input type="submit" 

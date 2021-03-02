@@ -21,6 +21,15 @@ class Api {
       })
   }
 
+  getSelsovets() {
+    return fetch(`${this.base_url}/selsovets`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
+
   getSteads() {
     return fetch(`${this.base_url}/steads`)
       .then((res) => {

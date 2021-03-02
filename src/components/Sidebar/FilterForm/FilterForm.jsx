@@ -22,7 +22,7 @@ class FormContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.setFetching(true);
-    if (['1', '2', '3', '4', '5', '6', '7', '8', '8'].indexOf(this.state.level) !== -1) {
+    if (Number(this.state.level) < 4) {
       this.props.api.getDistricts(this.state.level)
         .then((data) => {
           this.props.getData(data.data, this.state.level)
@@ -32,6 +32,18 @@ class FormContainer extends React.Component {
       this.props.api.getSteads()
         .then((data) => {
           this.props.getData(data.data, this.state.level)
+          this.props.setFetching(false)
+      })
+    } else if (this.state.level === '10') {
+      this.props.api.getHouses()
+        .then((data) => {
+          this.props.getData(data.data, this.state.level)
+          this.props.setFetching(false)
+      })
+    }else if (this.state.level === '4') {
+      this.props.api.getSelsovets()
+        .then((data) => {
+          this.props.getData(data, this.state.level)
           this.props.setFetching(false)
       })
     }
@@ -44,7 +56,13 @@ class FormContainer extends React.Component {
           <legend className={styles.title}>{this.props.name}Показать:</legend>
           {
             this.props.levels.map((level) => {
-              return (<RadioInput id={level.level} label={level.name} onInputChange={this.handleInputChange} key={level.level} />)
+              if (!level.name.includes('(устаревшее)')) {
+                return (<RadioInput id={level.level} 
+                  label={level.name} 
+                  onInputChange={this.handleInputChange} 
+                  key={level.level} />)
+              }
+              return null
             })
           }
         </fieldset>

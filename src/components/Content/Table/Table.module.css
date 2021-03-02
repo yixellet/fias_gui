@@ -1,0 +1,28 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.head {
+  background-color: rgb(138, 211, 183);
+}
+
+.headcell {
+  min-width:50px; 
+  padding: 10px 5px;
+  font-family: 'Roboto Condensed';
+  font-weight: 700;
+  font-size: 14px;
+  border: solid 2px rgb(255, 255, 255);
+}
+
+.row:nth-child(even) {
+  background-color: rgb(230, 230, 230);
+}
+
+.cell {
+  padding: 5px;
+  font-family: 'Roboto Condensed';
+  font-size: 14px;
+  border: solid 1px rgb(156, 156, 156);
+}

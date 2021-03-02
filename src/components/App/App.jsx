@@ -31,9 +31,10 @@ class App extends React.Component {
   }
 
   getData(data, level) {
+    console.log(data.data)
     this.setState({
       data: data,
-      columns: Object.keys(data[0]),
+      columns: Object.keys(data.data[0]),
       level: level,
     })
   }
@@ -47,8 +48,14 @@ class App extends React.Component {
       <>
         <Header />
         <main className={styles.container}>
-          <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} levels={this.state.levels} />
-          <Content children={this.state.isFetching ? <IsFetching /> : (this.state.data ? <Table data={this.state.data} columns={this.state.columns} /> : null)} />
+          <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} levels={this.state.levels} data={this.state.data} />
+          <Content children={this.state.isFetching ? 
+          <IsFetching /> : (
+            this.state.data ? 
+            <Table data={this.state.data} 
+              columns={this.state.columns}
+              toDMY={this.props.toDMY} /> :
+            null)} />
         </main>
       </>
     );

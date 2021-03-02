@@ -11,6 +11,7 @@ class RadioInput extends React.Component {
           id={this.props.id} 
           name='viewfilter' 
           value={this.props.id} />
+
           <label className={styles.label} 
           htmlFor={this.props.id}>{this.props.label}</label>
         </div>

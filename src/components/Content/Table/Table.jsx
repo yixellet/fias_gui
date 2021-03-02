@@ -5,12 +5,12 @@ class Table extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <table>
-          <thead>
-            <tr>
+        <table className={styles.table}>
+          <thead className={styles.head}>
+            <tr className={styles.headrow}>
               {
                 this.props.columns.map((column) => {
-                  return <th key={column}>{column}</th>
+                  return <th key={column} className={styles.headcell}>{column}</th>
                 })
               }
             </tr>
@@ -19,10 +19,10 @@ class Table extends React.Component {
             {
               this.props.data.map((row, index) => {
                 return (
-                  <tr key={index}>
+                  <tr key={index} className={styles.row}>
                     {
-                      Object.values(row).map((item, index) => {
-                        return <td key={index}>{item}</td>
+                      Object.entries(row).map((pair, index) => {
+                        return <td key={index} className={styles.cell}>{pair[0].includes('date') ? this.props.toDMY(pair[1]) : pair[1]}</td>
                       })
                     }
                   </tr>

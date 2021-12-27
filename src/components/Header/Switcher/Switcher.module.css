@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 20px;
+  padding-left: 20px;
+  border-left: 1px solid rgb(196, 196, 196);
+}
+
+.label_inactive {
+  color: rgb(197, 232, 255);
+  font-family: 'Roboto Light';
+}
+
+.label_active {
+  color: #fff;
+  font-family: 'Roboto';
+  font-weight: 400;
+}
+
+.switcher {
+  width: 50px;
+  height: 30px;
+  margin: 10px;
+  background-color: rgb(197, 232, 255);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: default;
+}
+
+.switcher_left {
+  justify-content: flex-start;
+}
+
+.switcher_right {
+  justify-content: flex-end;
+}
+
+.button {
+  width: 26px;
+  height: 26px;
+  margin: 1px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid rgb(90, 108, 121);
+}
+
+.button_left {
+  box-shadow: 3px 0 3px rgb(117, 117, 117);
+}
+
+.button_right {
+  box-shadow: -3px 0 3px rgb(128, 128, 128);
+}

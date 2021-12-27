@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  border-left: 1px solid rgb(196, 196, 196);
+}
+
+.text {
+  height: 40px;
+  position: relative;
+  width: 300px;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  padding: 0 20px;
+  z-index: 20;
+}
+
+.submit {
+  position: relative;
+  z-index: 20;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #fff;
+}
+
+.submit:hover {
+  cursor: pointer;
+  color: rgb(224, 153, 0);
+}
+
+.results {
+  width: 340px;
+  background-color: rgb(255, 215, 215);
+  position: absolute;
+  top: 20px;
+  z-index: 10;
+  padding-top: 30px;
+  box-shadow: 0 0 30px rgb(97, 97, 97);
+}

@@ -1,3 +1,3 @@
-const API_URL = 'http://172.17.13.49:4000';
+const API_URL = 'http://localhost:5000';
 
 module.exports = { API_URL };

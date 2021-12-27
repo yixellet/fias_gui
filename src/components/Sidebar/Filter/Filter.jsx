@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckboxInput from './CheckboxInput/CheckboxInput';
 import styles from '../FilterForm/FilterForm.module.css';
 
 class Filter extends React.Component {
@@ -6,8 +7,12 @@ class Filter extends React.Component {
     return (
       <form className={styles.container} onSubmit={this.handleSubmit}>
         <fieldset className={styles.fieldset}>
-          <legend className={styles.title}>{this.props.name}Район:</legend>
-
+          <legend className={styles.title}>{this.props.name}:</legend>
+          {
+            this.props.data.map((item) => {
+              return (<CheckboxInput label={item.mun_name} id={item.mun_objectid} name='parent' />)
+            })
+          }
         </fieldset>
         <div>
           <input type="submit" 

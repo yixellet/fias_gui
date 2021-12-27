@@ -17,6 +17,7 @@ class Table extends React.Component {
           </thead>
           <tbody>
             {
+              this.props.data ?
               this.props.data.map((row, index) => {
                 return (
                   <tr key={index} className={styles.row}>
@@ -27,7 +28,8 @@ class Table extends React.Component {
                     }
                   </tr>
                 )
-              })
+              }) :
+              null
             }
           </tbody>
         </table>

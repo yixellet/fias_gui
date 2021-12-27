@@ -22,22 +22,22 @@ class FormContainer extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.setFetching(true);
-    if (Number(this.state.level) < 4) {
+    if (Number(this.state.level) < 9 && Number(this.state.level) !== 4) {
       this.props.api.getDistricts(this.state.level)
         .then((data) => {
-          this.props.getData(data.data, this.state.level)
+          this.props.getData(data, this.state.level)
           this.props.setFetching(false)
         })
     } else if (this.state.level === '9') {
       this.props.api.getSteads()
         .then((data) => {
-          this.props.getData(data.data, this.state.level)
+          this.props.getData(data, this.state.level)
           this.props.setFetching(false)
       })
     } else if (this.state.level === '10') {
       this.props.api.getHouses()
         .then((data) => {
-          this.props.getData(data.data, this.state.level)
+          this.props.getData(data, this.state.level)
           this.props.setFetching(false)
       })
     }else if (this.state.level === '4') {

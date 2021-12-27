@@ -14,8 +14,9 @@ class App extends React.Component {
       isFetching: false,
       level: 2,
       data: [],
-      columns: [],
+      filters: null,
       levels: [],
+      columns: [],
     }
     this.getData = this.getData.bind(this);
     this.setFetching = this.setFetching.bind(this);
@@ -31,10 +32,10 @@ class App extends React.Component {
   }
 
   getData(data, level) {
-    console.log(data.data)
     this.setState({
-      data: data,
-      columns: Object.keys(data.data[0]),
+      data: data.data,
+      filters: data.filter,
+      columns: data.columns,
       level: level,
     })
   }
@@ -48,14 +49,12 @@ class App extends React.Component {
       <>
         <Header />
         <main className={styles.container}>
-          <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} levels={this.state.levels} data={this.state.data} />
+          <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} levels={this.state.levels} filters={this.state.filters} />
           <Content children={this.state.isFetching ? 
-          <IsFetching /> : (
-            this.state.data ? 
+            <IsFetching /> : 
             <Table data={this.state.data} 
               columns={this.state.columns}
-              toDMY={this.props.toDMY} /> :
-            null)} />
+              toDMY={this.props.toDMY} /> } />
         </main>
       </>
     );

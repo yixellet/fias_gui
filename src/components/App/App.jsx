@@ -1,62 +1,45 @@
 import React from 'react';
 import Header from '../Header/Header';
-import Sidebar from '../Sidebar/Sidebar';
 import Content from '../Content/Content';
-import IsFetching from '../Content/IsFetching/IsFetching';
-import Table from '../Content/Table/Table';
 
 import styles from './App.module.css';
+
+const ModeContext = React.createContext({
+  mode: 'admDiv',
+  toggleMode: () => {},
+});
+ModeContext.displayName = 'MyModeContext';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isFetching: false,
-      level: 2,
-      data: [],
-      filters: null,
-      levels: [],
-      columns: [],
-    }
-    this.getData = this.getData.bind(this);
-    this.setFetching = this.setFetching.bind(this);
+      mode: 'adm_div',
+      data: []
+    };
+
+    this.handleChangeMode = this.handleChangeMode.bind(this);
   }
 
   componentDidMount() {
-    this.props.api.getLevels()
+    this.props.api.getAdmDistricts()
       .then((data) => {
-        this.setState({
-          levels: data.data,
-        })
+        this.setState({ data: data.data })
       })
   }
 
-  getData(data, level) {
-    this.setState({
-      data: data.data,
-      filters: data.filter,
-      columns: data.columns,
-      level: level,
-    })
-  }
-
-  setFetching(status) {
-    this.setState({isFetching: status})
+  handleChangeMode(value) {
+    this.setState({ mode: value })
   }
 
   render() {
     return (
-      <>
-        <Header />
+      <ModeContext.Provider value={"admDiv"}>
+        <Header api={this.props.api} handleChangeMode={this.handleChangeMode} />
         <main className={styles.container}>
-          <Sidebar api={this.props.api} getData={this.getData} setFetching={this.setFetching} levels={this.state.levels} filters={this.state.filters} />
-          <Content children={this.state.isFetching ? 
-            <IsFetching /> : 
-            <Table data={this.state.data} 
-              columns={this.state.columns}
-              toDMY={this.props.toDMY} /> } />
+          <Content api={this.props.api} mode={this.state.mode} data={this.state.data} />
         </main>
-      </>
+      </ModeContext.Provider>
     );
   }
 }

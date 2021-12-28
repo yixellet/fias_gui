@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  border-left: 1px solid rgb(196, 196, 196);
+}
+
+.text {
+  height: 40px;
+  position: relative;
+  width: 300px;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  padding: 0 20px;
+  z-index: 20;
+  font-family: Roboto;
+}
+
+.submit {
+  position: relative;
+  z-index: 20;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #fff;
+}
+
+.submit:hover {
+  cursor: pointer;
+  background-color: rgb(215, 253, 239);
+}
+
+.magn_glass {
+  width: 15px;
+  height: 15px;
+}
+
+.results {
+  width: 340px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 20px;
+  z-index: 10;
+  padding-top: 30px;
+  box-shadow: 0 0 30px rgb(97, 97, 97);
+  border-radius: 0 0 20px 20px;
+  padding: 30px 20px 0 20px;
+  list-style-type: none;
+}
+
+.result {
+  padding: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(202, 202, 202);
+  font-family: Roboto;
+}
+
+.result:hover {
+  cursor: pointer;
+  background-color: rgb(239, 255, 249);
+}

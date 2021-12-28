@@ -10,55 +10,75 @@ class FormContainer extends React.Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.whatToDoWithData = this.whatToDoWithData.bind(this);
   }
 
   handleInputChange(event) {
-    
     this.setState({
       level: event.target.value,
     })
   }
 
+  whatToDoWithData(data) {
+    this.props.getData(data.data, data.filters, this.state.level)
+    this.props.setFetching(false)
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     this.props.setFetching(true);
-    if (Number(this.state.level) < 9 && Number(this.state.level) !== 4) {
-      this.props.api.getDistricts(this.state.level)
-        .then((data) => {
-          this.props.getData(data, this.state.level)
-          this.props.setFetching(false)
-        })
-    } else if (this.state.level === '9') {
-      this.props.api.getSteads()
-        .then((data) => {
-          this.props.getData(data, this.state.level)
-          this.props.setFetching(false)
-      })
-    } else if (this.state.level === '10') {
-      this.props.api.getHouses()
-        .then((data) => {
-          this.props.getData(data, this.state.level)
-          this.props.setFetching(false)
-      })
-    }else if (this.state.level === '4') {
-      this.props.api.getSelsovets()
-        .then((data) => {
-          this.props.getData(data, this.state.level)
-          this.props.setFetching(false)
-      })
+    switch (this.state.level) {
+      case '2':
+        this.props.api.getAdmDistricts()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '3':
+        this.props.api.getMunDistricts()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '4':
+        this.props.api.getMunStructures()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '5':
+        this.props.api.getCities()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '6':
+        this.props.api.getSettles()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '7':
+        this.props.api.getTerritories()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '8':
+        this.props.api.getStreets()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '9':
+        this.props.api.getSteads()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      case '10':
+        this.props.api.getHouses()
+          .then((data) => this.whatToDoWithData(data))
+        break;
+      default:
+        break;
     }
   }
 
   render() {
+    const leftLevel = this.props.mode === 'adm_div' ? 3 : 2
     return (
       <form className={styles.container} onSubmit={this.handleSubmit}>
         <fieldset className={styles.fieldset}>
           <legend className={styles.title}>{this.props.name}Показать:</legend>
           {
-            this.props.levels.map((level) => {
-              if (!level.name.includes('(устаревшее)')) {
-                return (<RadioInput id={level.level} 
-                  label={level.name} 
+            this.props.levels.slice(1, 6).map((level) => {
+              if (level.level !== leftLevel) {
+                return (<RadioInput data={level} 
                   onInputChange={this.handleInputChange} 
                   key={level.level} />)
               }

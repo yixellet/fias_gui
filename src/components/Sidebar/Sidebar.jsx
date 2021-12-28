@@ -8,10 +8,18 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <FilterForm api={this.props.api} getData={this.props.getData} setFetching={this.props.setFetching} levels={this.props.levels} />
+        <FilterForm api={this.props.api} 
+          mode={this.props.mode}
+          getData={this.props.getData} 
+          setFetching={this.props.setFetching} 
+          levels={this.props.levels} />
         {
-          this.props.filters !== null ?
-          (<Filter name={this.props.filters.name} data={this.props.filters.data} />) :
+          this.props.filters ?
+          this.props.filters.map(block => {
+            return <Filter name={block.name} 
+              options={block.options} 
+              fieldname={block.fieldname} />
+          }) :
           null
         }
       </div>

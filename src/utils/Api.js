@@ -3,8 +3,8 @@ class Api {
     this.base_url = base_url;
   }
 
-  liveSearch(string) {
-    return fetch(`${this.base_url}/livesearch?string=${string}`)
+  liveSearch(string, mode) {
+    return fetch(`${this.base_url}/livesearch?string=${string}&mode=${mode}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -12,8 +12,8 @@ class Api {
       })
   }
 
-  getAdmDistricts() {
-    return fetch(`${this.base_url}/admdistricts`)
+  getChildren(objectid, mode) {
+    return fetch(`${this.base_url}/children?objectid=${objectid}&mode=${mode}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -21,8 +21,8 @@ class Api {
       })
   }
 
-  getMunDistricts() {
-    return fetch(`${this.base_url}/mundistricts`)
+  getHouseChildren(objectid) {
+    return fetch(`${this.base_url}/housechildren?objectid=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -30,8 +30,8 @@ class Api {
       })
   }
 
-  getMunStructures() {
-    return fetch(`${this.base_url}/munstructures`)
+  getRooms(objectid) {
+    return fetch(`${this.base_url}/rooms?objectid=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -39,8 +39,8 @@ class Api {
       })
   }
 
-  getCities() {
-    return fetch(`${this.base_url}/cities`)
+  getAdmDistrictDetails(objectid) {
+    return fetch(`${this.base_url}/admdistrDetails?code=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -48,26 +48,8 @@ class Api {
       })
   }
 
-  getSettles() {
-    return fetch(`${this.base_url}/settlements`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getTerritories() {
-    return fetch(`${this.base_url}/territories`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getStreets() {
-    return fetch(`${this.base_url}/streets`)
+  getMunDistrictDetails(objectid) {
+    return fetch(`${this.base_url}/mundistrDetails?code=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -77,24 +59,6 @@ class Api {
 
   getLevels() {
     return fetch(`${this.base_url}/levels`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getSteads() {
-    return fetch(`${this.base_url}/steads`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getHouses() {
-    return fetch(`${this.base_url}/houses`)
       .then((res) => {
         if (res.ok) {
           return res.json();

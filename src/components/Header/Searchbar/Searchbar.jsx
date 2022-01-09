@@ -17,7 +17,7 @@ class Searchbar extends React.Component {
 
   handleChange(event) {
     this.setState({string: event.target.value});
-    this.props.api.liveSearch(event.target.value)
+    this.props.api.liveSearch(event.target.value, this.props.mode)
       .then((results) => {
         this.setState({
           results: results.data
@@ -28,7 +28,8 @@ class Searchbar extends React.Component {
   handleChoose(result) {
     this.setState({
       string: result,
-    })
+      results: [],
+    });
   }
 
   handleSubmit(event) {

@@ -1,5 +1,5 @@
 .card {
-  width: 55%;
+  width: 50%;
   min-height: 50px;
   padding: 20px;
   margin-bottom: 15px;
@@ -12,6 +12,7 @@
 }
 
 .card:hover {
+  cursor: pointer;
   box-shadow: 0 0 20px rgb(163, 163, 163);
 }
 
@@ -39,6 +40,12 @@
 .title {
   margin: 10px 0 0 0;
   font-size: 1.5rem;
+}
+
+.typeName {
+  font-size: .8rem;
+  color: rgb(114, 114, 114);
+  font-weight: 400;
 }
 
 .text {

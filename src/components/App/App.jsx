@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   handleGetChildren(objectid, level) {
-    if (level === '10') {
+    if (level === 10) {
       this.props.api.getHouseChildren(objectid)
         .then((data) => {
           this.setState({ data: data })

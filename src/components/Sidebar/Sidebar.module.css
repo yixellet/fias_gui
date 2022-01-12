@@ -1,7 +1,0 @@
-.container {
-  width: 25vw;
-  height: calc(100vh - 80px);
-  position: fixed;
-  border-right: solid 1px rgb(185, 185, 185);
-  overflow-y: scroll;
-}

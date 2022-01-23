@@ -2,11 +2,6 @@ import React from 'react';
 import styles from './Card.module.css';
 
 class Card extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   render() {
     return (
       <section onClick={() => this.props.handleGetChildren(this.props.data.objectid, this.props.data.level)} className={styles.card}>

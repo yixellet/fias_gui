@@ -6,8 +6,12 @@ class Navigation extends React.Component {
     return (
       <nav className={styles.container}>
         <ul>
-          <li>Район</li>
-          <li>Город</li>
+          {
+            this.props.levels &&
+            this.props.levels.map((level) => {
+              return <li key={level.level}><a href={`#${level.level}`}>{level.name}</a></li>
+            })
+          }
         </ul>
       </nav>
     );

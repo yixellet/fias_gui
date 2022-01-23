@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import Content from '../Content/Content';
 
+import splitByLevels from '../../utils/splitByLevels';
 import styles from './App.module.css';
 
 class App extends React.Component {
@@ -10,43 +11,69 @@ class App extends React.Component {
     super(props)
     this.state = {
       mode: 'adm_div',
-      data: []
+      currentObject: {'id': 454811, 'level': 1},
+      currentObjectGen: [],
+      currentObjectChildren: [],
+      levels: [],
+      scrollY: 0,
     };
 
     this.handleChangeMode = this.handleChangeMode.bind(this);
     this.handleGetChildren = this.handleGetChildren.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  handleScroll() {
+    const position = window.pageYOffset;
+    this.setState({ scrollY: position })
   }
 
   componentDidMount() {
-    this.props.api.getChildren(454811, this.state.mode)
-      .then((data) => {
-        this.setState({ data: data })
+    this.props.api.getLevels()
+      .then((levels) => {
+        this.setState({ levels: levels.data })
       })
+    this.handleGetChildren(this.state.currentObject.id, this.state.currentObject.level)
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   handleChangeMode(value) {
     this.setState({ mode: value })
     this.props.api.getChildren(454811, value)
       .then((data) => {
-        this.setState({ data: data })
+        this.setState({
+          currentObjectChildren: splitByLevels(data.children, this.state.levels),
+          currentObjectGen: data.genealogy
+        })
       })
   }
 
   handleGetChildren(objectid, level) {
+    const currentObject = {'id': objectid, 'level': level}
+    this.setState({ currentObject: currentObject})
     if (level === 10) {
       this.props.api.getHouseChildren(objectid)
         .then((data) => {
-          this.setState({ data: data })
+          this.setState({
+            currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            currentObjectGen: data.genealogy
+          })
         })
     } else if (level === 11) {
       this.props.api.getRooms(objectid)
         .then((data) => {
-          this.setState({ data: data })
+          this.setState({
+            currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            currentObjectGen: data.genealogy
+          })
         })
     } else {
       this.props.api.getChildren(objectid, this.state.mode, level)
         .then((data) => {
-          this.setState({ data: data })
+          this.setState({
+            currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            currentObjectGen: data.genealogy
+          })
         })
     }
   }
@@ -54,19 +81,23 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Header api={this.props.api} handleChangeMode={this.handleChangeMode} mode={this.state.mode} />
+        <Header api={this.props.api} 
+                handleChangeMode={this.handleChangeMode} 
+                mode={this.state.mode} 
+                scrollY={this.state.scrollY} />
         <main className={styles.container}>
           {
-            this.state.data &&
+            this.state.currentObjectChildren &&
             <Content api={this.props.api} 
               mode={this.state.mode} 
-              children={this.state.data.children}
-              genealogy={this.state.data.genealogy}
-              handleGetChildren={this.handleGetChildren} />
+              children={this.state.currentObjectChildren}
+              genealogy={this.state.currentObjectGen}
+              handleGetChildren={this.handleGetChildren}
+              scrollY={this.state.scrollY} />
           }
-          <Navigation />
+          <Navigation levels={this.state.currentObjectChildren} />
         </main>
-        <div className={styles.back} onClick={() => {this.handleGetChildren(this.state.data.genealogy[this.state.data.genealogy.length - 2].objectid)}}>
+        <div className={styles.back} onClick={() => {this.handleGetChildren(this.state.currentObjectGen[this.state.currentObjectGen.length - 2].objectid)}}>
           <svg className={styles.svgBack} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
             <path className={styles.svgBackPath} d="m1.49.467-1.036.982 1.036.982" transform="translate(-.261 -.37)"/>
           </svg>

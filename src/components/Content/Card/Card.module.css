@@ -1,7 +1,7 @@
-.card {
+.cardContainer {
   width: 100%;
   min-height: 50px;
-  padding: 20px;
+  padding: 0;
   margin-bottom: 15px;
   background-color: #fff;
   border-radius: 10px;
@@ -9,24 +9,22 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  font-family: 'Roboto';
+  cursor: pointer;
 }
 
-.card:hover {
-  cursor: pointer;
+.cardContainer:hover {
   box-shadow: 0 0 20px rgb(163, 163, 163);
 }
 
 .main {
   height: 100%;
   width: 100%;
+  margin: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-}
-
-.info {
-  font-family: 'Roboto';
 }
 
 .buttons {

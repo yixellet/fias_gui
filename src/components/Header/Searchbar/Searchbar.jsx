@@ -40,7 +40,7 @@ class Searchbar extends React.Component {
   render() {
     return (
       <form className={styles.container} name="search" onSubmit={this.handleSubmit}>
-        <div>
+        <div className={styles.wrapper}>
           <input className={styles.text} type="text" name="string" value={this.state.string} onChange={this.handleChange} autoComplete='off' />
           <button className={styles.submit}>
             <img className={styles.magn_glass} src={magnGlass} alt='Искать' />

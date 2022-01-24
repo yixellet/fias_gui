@@ -2,36 +2,60 @@
   position: relative;
   top: 80px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
   min-height: calc(100vh - 80px);
   background-color: rgb(238, 238, 238);
   z-index: 50;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
 }
 
-.back {
+.arrowsContainer {
   position: fixed;
   top: 80px;
   left: 0;
   width: 100px;
   height: calc(100vh - 80px);
-  cursor: pointer;
-  transition: background-color .1s linear;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  background-color: rgb(226, 226, 226);
   z-index: 60;
 }
 
-.back:hover {
+.button {
+  width: 100%;
+  height: 50%;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
+}
+
+.topButton {
+  justify-content: flex-start;
+}
+
+.backButton {
+  justify-content: flex-end;
+}
+
+.button:hover {
   background-color: rgb(214, 214, 214);
 }
 
-.svgBack {
+.svg {
   width: 30%;
+  margin: 10px;
+}
+
+.svgTop {
+  transform: rotate(90deg);
 }
 
 .svgBackPath {
@@ -49,4 +73,25 @@
   color: rgb(255, 255, 255);
   font-family: Roboto;
   font-weight: 700;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #fff;
+}
+
+.link {
+  text-decoration: none;
+  font-family: 'Roboto';
+  font-size: .8rem;
+  color: #000;
+  margin: 7px;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: rgb(43, 146, 106);
 }

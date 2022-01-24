@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       mode: 'adm_div',
-      currentObject: {'id': 454811, 'level': 1},
+      currentObject: {'id': 454811, 'level': '1'},
       currentObjectGen: [],
       currentObjectChildren: [],
       levels: [],
@@ -38,7 +38,10 @@ class App extends React.Component {
   }
 
   handleChangeMode(value) {
-    this.setState({ mode: value })
+    this.setState({ 
+      mode: value,
+      currentObject: {'id': 454811, 'level': '1'}
+    })
     this.props.api.getChildren(454811, value)
       .then((data) => {
         this.setState({
@@ -96,13 +99,28 @@ class App extends React.Component {
               scrollY={this.state.scrollY} />
           }
           <Navigation levels={this.state.currentObjectChildren} />
+          <aside className={styles.arrowsContainer}>
+            <a className={`${styles.button} ${styles.topButton}`} href='#top'>
+              <svg className={`${styles.svg} ${styles.svgTop}`} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
+                <path className={styles.svgBackPath} d="m1.49.467-1.036.982 1.036.982" transform="translate(-.261 -.37)"/>
+              </svg>
+              <p className={styles.backText}>Наверх</p>
+            </a>
+            <button className={`${styles.button} ${styles.backButton}`}
+                    onClick={() => {
+                      this.state.currentObject.level !== '1' &&
+                      this.handleGetChildren(this.state.currentObjectGen[this.state.currentObjectGen.length - 2].objectid, this.state.currentObjectGen[this.state.currentObjectGen.length - 2].level)
+                    }}>
+              <svg className={styles.svg} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
+                <path className={styles.svgBackPath} d="m1.49.467-1.036.982 1.036.982" transform="translate(-.261 -.37)"/>
+              </svg>
+              <p className={styles.backText}>Назад</p>
+            </button>
+          </aside>
         </main>
-        <div className={styles.back} onClick={() => {this.handleGetChildren(this.state.currentObjectGen[this.state.currentObjectGen.length - 2].objectid)}}>
-          <svg className={styles.svgBack} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
-            <path className={styles.svgBackPath} d="m1.49.467-1.036.982 1.036.982" transform="translate(-.261 -.37)"/>
-          </svg>
-          <p className={styles.backText}>Назад</p>
-        </div>
+        <footer className={styles.footer}>
+          <a className={styles.link} href='https://cpapr.ru' target='_blank' rel="noopener noreferrer">ГАУ АО "ЦПАПР", 2022 г.</a>
+        </footer>
       </>
     );
   }

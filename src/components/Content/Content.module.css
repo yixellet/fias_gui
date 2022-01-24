@@ -49,14 +49,22 @@
   margin: 0;
   width: 100%;
   list-style-type: none;
-	padding-top: 180px;
-	margin-top: -180px;
-	-webkit-background-clip: content-box;
-	background-clip: content-box;
+}
+
+.levelName {
+  font-family: 'Roboto Light';
+  font-size: 1.2rem;
 }
 
 .cards {
   padding: 0;
   margin: 0;
   width: 100%;
+}
+
+.card {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style-type: none;
 }

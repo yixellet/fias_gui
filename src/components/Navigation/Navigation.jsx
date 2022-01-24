@@ -5,11 +5,13 @@ class Navigation extends React.Component {
   render() {
     return (
       <nav className={styles.container}>
-        <ul>
+        <ul className={styles.list}>
           {
             this.props.levels &&
             this.props.levels.map((level) => {
-              return <li key={level.level}><a href={`#${level.level}`}>{level.name}</a></li>
+              return <li key={level.level} className={styles.item}>
+                <a className={styles.link} href={`#${level.level}`}>{level.name} ({level.objects.length})</a>
+              </li>
             })
           }
         </ul>

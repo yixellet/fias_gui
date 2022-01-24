@@ -19,13 +19,15 @@ class Switcher extends React.Component {
   render() {
     const { isVar1Active } = this.state;
     return (
-      <div className={styles.container}>
-        <p className={isVar1Active ? styles.label_active : styles.label_inactive}>{this.props.var1}</p>
-        <div className={isVar1Active ? `${styles.switcher} ${styles.switcher_left}` : `${styles.switcher} ${styles.switcher_right}`}>
-          <div className={isVar1Active ? `${styles.button} ${styles.button_left}` : `${styles.button} ${styles.button_right}`}
-               onClick={this.handleSwitch} />
+      <div className={styles.switcherContainer}>
+        <div className={styles.wrapper}>
+          <p className={isVar1Active ? `${styles.label} ${styles.label_active}` : `${styles.label} ${styles.label_inactive}`}>{this.props.var1}</p>
+          <div className={isVar1Active ? `${styles.switcher} ${styles.switcher_left}` : `${styles.switcher} ${styles.switcher_right}`}>
+            <div className={isVar1Active ? `${styles.button} ${styles.button_left}` : `${styles.button} ${styles.button_right}`}
+                onClick={this.handleSwitch} />
+            </div>
+          <p className={isVar1Active ? `${styles.label} ${styles.label_inactive}` : `${styles.label} ${styles.label_active}`}>{this.props.var2}</p>
         </div>
-        <p className={!isVar1Active ? styles.label_active : styles.label_inactive}>{this.props.var2}</p>
       </div>
     );
   }

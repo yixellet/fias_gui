@@ -1,27 +1,36 @@
-.container {
+.switcherContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 20px;
-  padding-left: 20px;
   border-left: 1px solid rgb(196, 196, 196);
+}
+
+.wrapper {
+  margin: 0 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.label {
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
 }
 
 .label_inactive {
   color: rgb(197, 232, 255);
-  font-family: 'Roboto Light';
 }
 
 .label_active {
   color: #fff;
-  font-family: 'Roboto';
-  font-weight: 400;
 }
 
 .switcher {
   width: 50px;
   height: 30px;
-  margin: 10px;
+  margin: 0 10px;
   background-color: rgb(197, 232, 255);
   border-radius: 15px;
   display: flex;
@@ -54,4 +63,11 @@
 
 .button_right {
   box-shadow: -3px 0 3px rgb(128, 128, 128);
+}
+
+
+@media (max-width: 1600px) {
+  .label {
+    width: 150px;
+  }
 }

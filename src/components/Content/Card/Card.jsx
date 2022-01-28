@@ -4,7 +4,7 @@ import styles from './Card.module.css';
 class Card extends React.Component {
   render() {
     return (
-      <article onClick={() => this.props.handleGetChildren(this.props.data.objectid, this.props.data.level)} 
+      <article onClick={() => this.props.handleGetChildren(this.props.data)} 
                className={styles.cardContainer}>
         <div className={styles.main}>
           <p className={styles.objectid}>{this.props.data.objectid}</p>

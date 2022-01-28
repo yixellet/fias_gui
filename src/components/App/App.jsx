@@ -11,7 +11,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       mode: 'adm_div',
-      currentObject: {'id': 454811, 'level': '1'},
+      currentObject: {'objectid': 454811, 'level': '1', 'name': 'Астраханская', 'typename': 'обл'},
+      currentObjectParams: [],
       currentObjectGen: [],
       currentObjectChildren: [],
       levels: [],
@@ -19,6 +20,7 @@ class App extends React.Component {
     };
 
     this.handleChangeMode = this.handleChangeMode.bind(this);
+    this.handleGenealogy = this.handleGenealogy.bind(this);
     this.handleGetChildren = this.handleGetChildren.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
@@ -33,49 +35,70 @@ class App extends React.Component {
       .then((levels) => {
         this.setState({ levels: levels.data })
       })
-    this.handleGetChildren(this.state.currentObject.id, this.state.currentObject.level)
+    this.handleGetChildren(this.state.currentObject)
     window.addEventListener('scroll', this.handleScroll);
   }
 
   handleChangeMode(value) {
     this.setState({ 
       mode: value,
-      currentObject: {'id': 454811, 'level': '1'}
+      currentObject: []
     })
     this.props.api.getChildren(454811, value)
       .then((data) => {
         this.setState({
           currentObjectChildren: splitByLevels(data.children, this.state.levels),
-          currentObjectGen: data.genealogy
+          currentObjectGen: [{'objectid': 454811, 'level': '1', 'name': 'Астраханская', 'typename': 'обл'}]
         })
+      })
+    this.props.api.getParams(454811)
+      .then((data) => {
+        this.setState({ currentObjectParams: data.params })
       })
   }
 
-  handleGetChildren(objectid, level) {
-    const currentObject = {'id': objectid, 'level': level}
-    this.setState({ currentObject: currentObject})
-    if (level === 10) {
-      this.props.api.getHouseChildren(objectid)
+  handleGenealogy(object) {
+    const genIDs = this.state.currentObjectGen.map((obj) => {
+      return obj.objectid
+    })
+    const bool = genIDs.find((objectid) => {
+      return objectid === object.objectid
+    })
+    if (bool) {
+      const idx = genIDs.indexOf(bool)
+      const newGen = this.state.currentObjectGen.slice(0, idx+1)
+      this.setState({currentObjectGen: newGen})
+    } else {
+      this.setState((state, props) => ({currentObjectGen: state.currentObjectGen.concat(object)}))
+    }
+  }
+
+  handleGetChildren(object) {
+    this.handleGenealogy(object)
+    this.setState({ currentObject: object})
+    this.props.api.getParams(object.objectid)
+      .then((data) => {
+        this.setState({ currentObjectParams: data.params })
+      })
+    if (object.level === '10') {
+      this.props.api.getHouseChildren(object.objectid)
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
-            currentObjectGen: data.genealogy
           })
         })
-    } else if (level === 11) {
-      this.props.api.getRooms(objectid)
+    } else if (object.level === '11') {
+      this.props.api.getRooms(object.objectid)
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
-            currentObjectGen: data.genealogy
           })
         })
     } else {
-      this.props.api.getChildren(objectid, this.state.mode, level)
+      this.props.api.getChildren(object.objectid, this.state.mode, object.level)
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
-            currentObjectGen: data.genealogy
           })
         })
     }
@@ -96,9 +119,11 @@ class App extends React.Component {
               children={this.state.currentObjectChildren}
               genealogy={this.state.currentObjectGen}
               handleGetChildren={this.handleGetChildren}
-              scrollY={this.state.scrollY} />
+              scrollY={this.state.scrollY}
+              params={this.state.currentObjectParams} />
           }
-          <Navigation levels={this.state.currentObjectChildren} />
+          <Navigation levels={this.state.currentObjectChildren}
+            scrollY={this.state.scrollY} />
           <aside className={styles.arrowsContainer}>
             <a className={`${styles.button} ${styles.topButton}`} href='#top'>
               <svg className={`${styles.svg} ${styles.svgTop}`} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +134,7 @@ class App extends React.Component {
             <button className={`${styles.button} ${styles.backButton}`}
                     onClick={() => {
                       this.state.currentObject.level !== '1' &&
-                      this.handleGetChildren(this.state.currentObjectGen[this.state.currentObjectGen.length - 2].objectid, this.state.currentObjectGen[this.state.currentObjectGen.length - 2].level)
+                      this.handleGetChildren(this.state.currentObjectGen[this.state.currentObjectGen.length - 2])
                     }}>
               <svg className={styles.svg} viewBox="0 0 1.32 2.157" xmlns="http://www.w3.org/2000/svg">
                 <path className={styles.svgBackPath} d="m1.49.467-1.036.982 1.036.982" transform="translate(-.261 -.37)"/>

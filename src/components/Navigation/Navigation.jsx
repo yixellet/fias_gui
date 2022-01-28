@@ -4,7 +4,7 @@ import styles from './Navigation.module.css';
 class Navigation extends React.Component {
   render() {
     return (
-      <nav className={styles.container}>
+      <nav className={this.props.scrollY === 0 ? `${styles.container} ${styles.containerInitial}` : `${styles.container} ${styles.containerScroll}`}>
         <ul className={styles.list}>
           {
             this.props.levels &&

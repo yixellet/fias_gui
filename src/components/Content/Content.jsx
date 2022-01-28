@@ -12,8 +12,8 @@ class Content extends React.Component {
             {
               this.props.genealogy &&
               this.props.genealogy.map((g, idx) => {
-                return <span key={g.objectid}
-                  onClick={() => {this.props.handleGetChildren(g.objectid, g.level)}}>
+                return <span key={g.objectid} className={styles.genealogyPart}
+                  onClick={() => {this.props.handleGetChildren(g)}}>
                     {g.name} {g.typename.toLowerCase()}{idx!==this.props.genealogy.length-1 ? ', ' : ''}
                     </span>
               })
@@ -28,8 +28,9 @@ class Content extends React.Component {
                 <ul className={styles.cards}>
                   {
                     level.objects.map((object) => {
-                      return <li key={object.objectid} className={styles.card}><Card data={object} 
-                      handleGetChildren={this.props.handleGetChildren} /></li>
+                      return <li key={object.objectid} className={styles.card}>
+                        <Card data={object} handleGetChildren={this.props.handleGetChildren} />
+                      </li>
                     })
                   }
                 </ul>
@@ -37,6 +38,17 @@ class Content extends React.Component {
             })
           }
         </ul>
+        <div className={this.props.scrollY === 0 ? `${styles.info} ${styles.infoInitial}` : `${styles.info} ${styles.infoScroll}`}>
+          <ul className={styles.paramsList}>
+            {
+              this.props.params &&
+              this.props.params.map((param) => {
+                return <li key={param.id} className={styles.paramItem}>
+                  <span className={styles.paramName}>{param.name}</span> {param.value}</li>
+              })
+            }
+          </ul>
+        </div>
       </>
     );
   }

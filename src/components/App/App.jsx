@@ -110,7 +110,8 @@ class App extends React.Component {
         <Header api={this.props.api} 
                 handleChangeMode={this.handleChangeMode} 
                 mode={this.state.mode} 
-                scrollY={this.state.scrollY} />
+                scrollY={this.state.scrollY}
+                handleGetChildren={this.handleGetChildren} />
         <main className={styles.container}>
           {
             this.state.currentObjectChildren &&

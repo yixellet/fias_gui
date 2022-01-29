@@ -27,13 +27,17 @@ class Searchbar extends React.Component {
 
   handleChoose(result) {
     this.setState({
-      string: result,
+      string: '',
       results: [],
     });
   }
 
   handleSubmit(event) {
     alert('Отправленное имя: ' + this.state.string);
+    this.setState({
+      string: '',
+      results: [],
+    })
     event.preventDefault();
   }
 

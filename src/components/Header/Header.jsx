@@ -17,8 +17,14 @@ class Header extends React.Component {
           <div className={styles.content}>
             <p className={styles.title}>Государственный адресный реестр</p>
             <div className={styles.control}>
-              <Searchbar api={this.props.api} mode={this.props.mode} />
-              <Switcher changeMode={this.props.handleChangeMode} var1="Административное деление" var2="Муниципальное деление" />
+              <Searchbar 
+                api={this.props.api} 
+                mode={this.props.mode}
+                handleGetChildren={this.props.handleGetChildren} />
+              <Switcher 
+                changeMode={this.props.handleChangeMode} 
+                var1="Административное деление" 
+                var2="Муниципальное деление" />
             </div>
           </div>
         </div>

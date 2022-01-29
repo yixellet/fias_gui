@@ -1,6 +1,7 @@
 .genealogy {
   display: flex;
   align-items: flex-start;
+  max-width: calc(100vw - 250px);
 }
 
 .genealogyFixed {

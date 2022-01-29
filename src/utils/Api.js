@@ -39,26 +39,17 @@ class Api {
       })
   }
 
-  getAdmDistrictDetails(objectid) {
-    return fetch(`${this.base_url}/admdistrDetails?code=${objectid}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getMunDistrictDetails(objectid) {
-    return fetch(`${this.base_url}/mundistrDetails?code=${objectid}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
   getLevels() {
     return fetch(`${this.base_url}/levels`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
+
+  getParams(objectid) {
+    return fetch(`${this.base_url}/params?objectid=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

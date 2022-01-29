@@ -27,20 +27,24 @@ class Searchbar extends React.Component {
 
   handleChoose(result) {
     this.setState({
-      string: result,
+      string: '',
       results: [],
     });
   }
 
   handleSubmit(event) {
     alert('Отправленное имя: ' + this.state.string);
+    this.setState({
+      string: '',
+      results: [],
+    })
     event.preventDefault();
   }
 
   render() {
     return (
       <form className={styles.container} name="search" onSubmit={this.handleSubmit}>
-        <div>
+        <div className={styles.wrapper}>
           <input className={styles.text} type="text" name="string" value={this.state.string} onChange={this.handleChange} autoComplete='off' />
           <button className={styles.submit}>
             <img className={styles.magn_glass} src={magnGlass} alt='Искать' />

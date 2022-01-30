@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './IsFetching.module.css';
-import image from '../../../images/logo.svg';
+import image from '../../../images/isFetching.svg';
 
 class IsFetching extends React.Component {
   render() {

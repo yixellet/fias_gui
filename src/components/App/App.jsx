@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import Content from '../Content/Content';
+import IsFetching from './IsFetching/IsFetching';
 
 import splitByLevels from '../../utils/splitByLevels';
 import styles from './App.module.css';
@@ -17,6 +18,7 @@ class App extends React.Component {
       currentObjectChildren: [],
       levels: [],
       scrollY: 0,
+      isFetching: false,
     };
 
     this.handleChangeMode = this.handleChangeMode.bind(this);
@@ -40,7 +42,8 @@ class App extends React.Component {
   }
 
   handleChangeMode(value) {
-    this.setState({ 
+    this.setState({
+      isFetching: true,
       mode: value,
       currentObject: []
     })
@@ -53,7 +56,10 @@ class App extends React.Component {
       })
     this.props.api.getParams(454811)
       .then((data) => {
-        this.setState({ currentObjectParams: data.params })
+        this.setState({
+          currentObjectParams: data.params,
+          isFetching: false,
+        })
       })
   }
 
@@ -75,7 +81,10 @@ class App extends React.Component {
 
   handleGetChildren(object) {
     this.handleGenealogy(object)
-    this.setState({ currentObject: object})
+    this.setState({
+      isFetching: true,
+      currentObject: object
+    })
     this.props.api.getParams(object.objectid)
       .then((data) => {
         this.setState({ currentObjectParams: data.params })
@@ -85,6 +94,7 @@ class App extends React.Component {
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            isFetching: false,
           })
         })
     } else if (object.level === '11') {
@@ -92,6 +102,7 @@ class App extends React.Component {
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            isFetching: false,
           })
         })
     } else {
@@ -99,6 +110,7 @@ class App extends React.Component {
         .then((data) => {
           this.setState({
             currentObjectChildren: splitByLevels(data.children, this.state.levels),
+            isFetching: false,
           })
         })
     }
@@ -143,6 +155,10 @@ class App extends React.Component {
               <p className={styles.backText}>Назад</p>
             </button>
           </aside>
+          {
+            this.state.isFetching &&
+            <IsFetching />
+          }
         </main>
         <footer className={styles.footer}>
           <a className={styles.link} href='https://cpapr.ru' target='_blank' rel="noopener noreferrer">ГАУ АО "ЦПАПР", 2022 г.</a>

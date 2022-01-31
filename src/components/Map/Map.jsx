@@ -1,6 +1,7 @@
 import React from 'react';
 import leaflet from 'leaflet';
 import styles from './Map.module.css';
+import "leaflet/dist/leaflet.css";
 
 class Map extends React.Component {
   constructor(props) {
@@ -9,10 +10,13 @@ class Map extends React.Component {
       map: null
     }
     this.createMap = this.createMap.bind(this)
+
   }
 
   createMap() {
-    const opts = this.props.gauges !== null ? {center: [47.2,47.2], zoom: 7} : {center: [this.props.lon, this.props.lat], zoom: 10}
+    //console.log(this.props.geometry === undefined ? 'undef' : 'DEF')
+    //const opts = {center: [47.2,47.2], zoom: 7}
+    const opts = this.props.geometry === undefined || this.props.geometry === null ? {center: [47.2,47.2], zoom: 7} : {center: [this.props.geometry.centroid_x, this.props.geometry.centroid_y], zoom: 8} 
     return leaflet.map('map',opts)
   }
 
@@ -23,6 +27,7 @@ class Map extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div id='map' className={styles.map}></div>
     );

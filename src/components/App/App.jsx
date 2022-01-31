@@ -58,7 +58,7 @@ class App extends React.Component {
       })
     this.props.api.getGeometry(454811, 1)
       .then((data) => {
-        this.setState({ currentObjectGeometry: data })
+        this.setState({ currentObjectGeometry: data.data[0] })
       })
     this.props.api.getParams(454811)
       .then((data) => {
@@ -97,7 +97,7 @@ class App extends React.Component {
       })
     this.props.api.getGeometry(object.objectid, object.level)
       .then((data) => {
-        this.setState({ currentObjectGeometry: data })
+        this.setState({ currentObjectGeometry: data.data[0] })
       })
     if (object.level === '10') {
       this.props.api.getHouseChildren(object.objectid)
@@ -165,7 +165,7 @@ class App extends React.Component {
               <p className={styles.backText}>Назад</p>
             </button>
           </aside>
-          <Map geometry={this.state.geometry} />
+          <Map geometry={this.state.currentObjectGeometry} />
           {
             this.state.isFetching &&
             <IsFetching />

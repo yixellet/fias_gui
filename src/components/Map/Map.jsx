@@ -1,33 +1,41 @@
 import React from 'react';
-import leaflet from 'leaflet';
 import styles from './Map.module.css';
 import "leaflet/dist/leaflet.css";
+import L from 'leaflet';
 
 class Map extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      map: null
-    }
-    this.createMap = this.createMap.bind(this)
-
-  }
-
-  createMap() {
-    //console.log(this.props.geometry === undefined ? 'undef' : 'DEF')
-    //const opts = {center: [47.2,47.2], zoom: 7}
-    const opts = this.props.geometry === undefined || this.props.geometry === null ? {center: [47.2,47.2], zoom: 7} : {center: [this.props.geometry.centroid_x, this.props.geometry.centroid_y], zoom: 8} 
-    return leaflet.map('map',opts)
+    this.state = {}
   }
 
   componentDidMount() {
-    const m = this.createMap()
-    this.setState({map: m})
-    leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+    this.map = L.map('map', {
+      center: [47.2,47.2],
+      zoom: 7,
+      layers: [
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'),
+      ]
+    });
+    this.layer = L.layerGroup().addTo(this.map)
+  }
+
+  componentDidUpdate({geometry}) {
+    if (this.props.geometry !== geometry) {
+      if (this.props.geometry) {
+        this.layer.clearLayers();
+        L.geoJSON(JSON.parse(this.props.geometry.geom)).addTo(this.layer)
+        const bbox = this.props.geometry.extent.slice(4,-1).split(',')
+        this.map.fitBounds([[Number(bbox[0].split(' ')[1]), Number(bbox[0].split(' ')[0])], 
+                            [Number(bbox[1].split(' ')[1]), Number(bbox[1].split(' ')[0])]])
+      } else {
+        this.layer.clearLayers();
+        this.map.setView(new L.LatLng(47.2,47.2))
+      }
+    }
   }
 
   render() {
-    console.log(this.props)
     return (
       <div id='map' className={styles.map}></div>
     );

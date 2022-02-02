@@ -30,6 +30,7 @@ class Searchbar extends React.Component {
       string: '',
       results: [],
     });
+    this.props.handleGetChildren(result)
   }
 
   handleSubmit(event) {
@@ -56,7 +57,7 @@ class Searchbar extends React.Component {
             {
               this.state.results.map((result) => {
                 return <li className={styles.result} key={result.objectid}
-                  onClick={() => this.handleChoose(result.name)}>
+                  onClick={() => this.handleChoose(result)}>
                   {result.typename} {result.name}
                 </li>
               })

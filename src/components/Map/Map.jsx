@@ -2,6 +2,8 @@ import React from 'react';
 import leaflet from 'leaflet';
 import styles from './Map.module.css';
 
+import 'leaflet/dist/leaflet.css';
+
 class Map extends React.Component {
   constructor(props) {
     super(props)
@@ -20,6 +22,7 @@ class Map extends React.Component {
     const m = this.createMap()
     this.setState({map: m})
     leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+    m.invalidateSize(true);
   }
 
   render() {

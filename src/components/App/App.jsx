@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 import Content from '../Content/Content';
+import Map from '../Map/Map';
 import IsFetching from './IsFetching/IsFetching';
 
 import splitByLevels from '../../utils/splitByLevels';
@@ -16,6 +17,7 @@ class App extends React.Component {
       currentObjectParams: [],
       currentObjectGen: [],
       currentObjectChildren: [],
+      currentObjectGeometry: {},
       levels: [],
       scrollY: 0,
       isFetching: false,
@@ -54,6 +56,10 @@ class App extends React.Component {
           currentObjectGen: [{'objectid': 454811, 'level': '1', 'name': 'Астраханская', 'typename': 'обл'}]
         })
       })
+    this.props.api.getGeometry(454811, 1)
+      .then((data) => {
+        this.setState({ currentObjectGeometry: data.data[0] })
+      })
     this.props.api.getParams(454811)
       .then((data) => {
         this.setState({
@@ -88,6 +94,10 @@ class App extends React.Component {
     this.props.api.getParams(object.objectid)
       .then((data) => {
         this.setState({ currentObjectParams: data.params })
+      })
+    this.props.api.getGeometry(object.objectid, object.level)
+      .then((data) => {
+        this.setState({ currentObjectGeometry: data.data[0] })
       })
     if (object.level === '10') {
       this.props.api.getHouseChildren(object.objectid)
@@ -155,6 +165,7 @@ class App extends React.Component {
               <p className={styles.backText}>Назад</p>
             </button>
           </aside>
+          <Map geometry={this.state.currentObjectGeometry} />
           {
             this.state.isFetching &&
             <IsFetching />

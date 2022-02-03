@@ -30,7 +30,6 @@ class Map extends React.Component {
                             [Number(bbox[1].split(' ')[1]), Number(bbox[1].split(' ')[0])]])
       } else {
         this.layer.clearLayers();
-        this.map.setView(new L.LatLng(47.2,47.2))
       }
     }
   }

@@ -95,11 +95,7 @@ class App extends React.Component {
       .then((data) => {
         this.setState({ currentObjectParams: data.params })
       })
-    this.props.api.getGeometry(object.objectid, object.level)
-      .then((data) => {
-        this.setState({ currentObjectGeometry: data.data[0] })
-      })
-    if (object.level === '10') {
+    if (object.level === 10) {
       this.props.api.getHouseChildren(object.objectid)
         .then((data) => {
           this.setState({
@@ -107,7 +103,11 @@ class App extends React.Component {
             isFetching: false,
           })
         })
-    } else if (object.level === '11') {
+      this.props.api.getGeometry(object.objectid, object.level)
+        .then((data) => {
+          this.setState({ currentObjectGeometry: data.data[0] })
+        })
+    } else if (object.level === 11) {
       this.props.api.getRooms(object.objectid)
         .then((data) => {
           this.setState({
@@ -123,8 +123,13 @@ class App extends React.Component {
             isFetching: false,
           })
         })
+      this.props.api.getGeometry(object.objectid, object.level)
+        .then((data) => {
+          this.setState({ currentObjectGeometry: data.data[0] })
+        })
     }
   }
+
 
   render() {
     return (

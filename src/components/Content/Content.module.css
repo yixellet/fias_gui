@@ -1,35 +1,3 @@
-.genealogy {
-  display: flex;
-  align-items: flex-start;
-  max-width: calc(100vw - 250px);
-}
-
-.genealogyFixed {
-  position: fixed;
-  top: 0;
-  left: 100px;
-  padding-left: 20px;
-  width: calc(100vw - 100px);
-  height: 80px;
-  background-color: rgb(238, 238, 238);
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.genealogyTitle {
-  margin-right: 10px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  cursor: pointer;
-  display: inline;
-}
-
-.genealogyPart:hover {
-  color: rgb(43, 146, 106);
-}
-
 .levels {
   padding: 0;
   margin: 0;
@@ -59,37 +27,4 @@
   margin: 0;
   width: 100%;
   list-style-type: none;
-}
-
-.info {
-  position: fixed;
-  right: 25px;
-  width: calc(65% / 2 - 50px);
-  min-height: 50px;
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-.infoInitial {
-  top: 215px;
-}
-
-.infoScroll {
-  top: 80px;
-}
-
-.paramsList {
-  padding: 0;
-  margin: 30px;
-}
-
-.paramItem {
-  list-style-type: none;
-  margin-bottom: 20px;
-  font-family: 'Roboto Light';
-}
-
-.paramName {
-  font-family: 'Roboto Medium';
-  font-weight: 500;
 }

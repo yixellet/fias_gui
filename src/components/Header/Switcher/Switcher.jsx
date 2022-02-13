@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Switcher.module.css';
 
 class Switcher extends React.Component {
@@ -23,7 +24,7 @@ class Switcher extends React.Component {
         <div className={styles.wrapper}>
           <p className={isVar1Active ? `${styles.label} ${styles.label_active}` : `${styles.label} ${styles.label_inactive}`}>{this.props.var1}</p>
           <div className={isVar1Active ? `${styles.switcher} ${styles.switcher_left}` : `${styles.switcher} ${styles.switcher_right}`}>
-            <div className={isVar1Active ? `${styles.button} ${styles.button_left}` : `${styles.button} ${styles.button_right}`}
+            <Link to={`/`} className={isVar1Active ? `${styles.button} ${styles.button_left}` : `${styles.button} ${styles.button_right}`}
                 onClick={this.handleSwitch} />
             </div>
           <p className={isVar1Active ? `${styles.label} ${styles.label_inactive}` : `${styles.label} ${styles.label_active}`}>{this.props.var2}</p>

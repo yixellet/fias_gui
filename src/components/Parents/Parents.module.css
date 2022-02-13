@@ -1,0 +1,39 @@
+.parents {
+  position: fixed;
+  display: flex;
+  align-items: flex-start;
+  max-width: calc(100vw - 250px);
+}
+
+.parentsNoScroll {
+  top: 80px;
+}
+
+.parentsScroll {
+  top: 0;
+  left: 100px;
+  padding-left: 20px;
+  width: calc(100vw - 100px);
+  height: 80px;
+  background-color: rgb(238, 238, 238);
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.parentsTitle {
+  margin-right: 10px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  cursor: pointer;
+  display: inline;
+}
+
+.parentsPart {
+  text-decoration: none;
+  color: #000;
+}
+
+.parentsPart:hover {
+  color: rgb(43, 146, 106);
+}

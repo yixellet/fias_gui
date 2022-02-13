@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Switcher from './Switcher/Switcher';
 import Searchbar from './Searchbar/Searchbar';
 import logo from '../../images/logo.svg';
@@ -15,12 +16,11 @@ class Header extends React.Component {
         </a>
         <div className={this.props.scrollY === 0 ? styles.contentContainer : styles.contentContainerHide}>
           <div className={styles.content}>
-            <p className={styles.title}>Государственный адресный реестр</p>
+            <Link className={styles.title} to="/">Государственный адресный реестр</Link>
             <div className={styles.control}>
               <Searchbar 
                 api={this.props.api} 
-                mode={this.props.mode}
-                handleGetChildren={this.props.handleGetChildren} />
+                mode={this.props.mode} />
               <Switcher 
                 changeMode={this.props.handleChangeMode} 
                 var1="Административное деление" 

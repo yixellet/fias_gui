@@ -1,0 +1,32 @@
+.info {
+  position: fixed;
+  right: 25px;
+  width: calc(65% / 2 - 50px);
+  min-height: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.infoInitial {
+  top: 215px;
+}
+
+.infoScroll {
+  top: 80px;
+}
+
+.paramsList {
+  padding: 0;
+  margin: 30px;
+}
+
+.paramItem {
+  list-style-type: none;
+  margin-bottom: 20px;
+  font-family: 'Roboto Light';
+}
+
+.paramName {
+  font-family: 'Roboto Medium';
+  font-weight: 500;
+}

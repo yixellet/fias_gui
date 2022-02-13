@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import magnGlass from '../../../images/magnifying-glass.svg';
 import styles from './Searchbar.module.css';
 
@@ -8,6 +9,7 @@ class Searchbar extends React.Component {
     this.state = {
       string: '',
       results: [],
+      size: 'full',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,12 +27,11 @@ class Searchbar extends React.Component {
       })
   }
 
-  handleChoose(result) {
+  handleChoose(event) {
     this.setState({
       string: '',
       results: [],
     });
-    this.props.handleGetChildren(result)
   }
 
   handleSubmit(event) {
@@ -56,10 +57,9 @@ class Searchbar extends React.Component {
           <ul className={styles.results}>
             {
               this.state.results.map((result) => {
-                return <li className={styles.result} key={result.objectid}
-                  onClick={() => this.handleChoose(result)}>
+                return <Link to={`/${this.props.mode}/${result.objectid}`} className={styles.result} key={result.objectid}>
                   {result.typename} {result.name}
-                </li>
+                </Link>
               })
             }
           </ul>

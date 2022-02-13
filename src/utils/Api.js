@@ -3,8 +3,17 @@ class Api {
     this.base_url = base_url;
   }
 
-  liveSearch(string) {
-    return fetch(`${this.base_url}/livesearch?string=${string}`)
+  liveSearch(string, mode) {
+    return fetch(`${this.base_url}/livesearch?string=${string}&mode=${mode}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
+
+  getObject(objectid) {
+    return fetch(`${this.base_url}/object?objectid=${objectid}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -66,8 +75,8 @@ class Api {
       })
   }
 
-  getGenealogy(objectid) {
-    return fetch(`${this.base_url}/genealogy?objectid=${objectid}`)
+  getParents(objectid, mode) {
+    return fetch(`${this.base_url}/parents?objectid=${objectid}&mode=${mode}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

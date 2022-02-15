@@ -83,6 +83,15 @@ class Api {
         }
       })
   }
+
+  search(string, mode) {
+    return fetch(`${this.base_url}/search?string=${string}&mode=${mode}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
 }
 
 export default Api;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Parents from '../Parents/Parents';
 import Navigation from '../Navigation/Navigation';
 import Params from '../Params/Params';
@@ -11,6 +11,7 @@ import splitByLevels from '../../utils/splitByLevels';
 import styles from './Main.module.css';
 
 function Main(props) {
+  let navigate = useNavigate();
   let { objectid } = useParams();
   const [isFetching, setIsFetching] = useState(false);
   const [levels, setLevels] = useState([]);
@@ -44,7 +45,7 @@ function Main(props) {
       return() => {
         isMounted = false;
       };
-  }, [objectid, props.api]);
+  }, [objectid, props.api, navigate]);
 
   useEffect(() => {
     let isMounted = true;

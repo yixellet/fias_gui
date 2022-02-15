@@ -1,72 +1,57 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import magnGlass from '../../../images/magnifying-glass.svg';
 import styles from './Searchbar.module.css';
 
-class Searchbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      string: '',
-      results: [],
-      size: 'full',
-    };
+function Searchbar(props) {
+  let navigate = useNavigate();
+  const [string, setString] = useState('');
+  const [results, setResults] = useState([]);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChoose = this.handleChoose.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({string: event.target.value});
-    this.props.api.liveSearch(event.target.value, this.props.mode)
+  function handleChange(event) {
+    setString(event.target.value);
+    props.api.liveSearch(event.target.value, props.mode)
       .then((results) => {
-        this.setState({
-          results: results.data
-        })
+        setResults(results.data)
       })
   }
 
-  handleChoose(event) {
-    this.setState({
-      string: '',
-      results: [],
-    });
+  function handleChoose(event) {
+    setString('');
+    setResults([])
   }
 
-  handleSubmit(event) {
-    alert('Отправленное имя: ' + this.state.string);
-    this.setState({
-      string: '',
-      results: [],
-    })
+  function handleSubmit(event) {
     event.preventDefault();
+    navigate(`/${props.mode}/search/${string}`)
+    setString('');
+    setResults([])
   }
 
-  render() {
-    return (
-      <form className={styles.container} name="search" onSubmit={this.handleSubmit}>
-        <div className={styles.wrapper}>
-          <input className={styles.text} type="text" name="string" value={this.state.string} onChange={this.handleChange} autoComplete='off' />
-          <button className={styles.submit}>
-            <img className={styles.magn_glass} src={magnGlass} alt='Искать' />
-          </button>
-        </div>
-        {
-          this.state.results.length > 0 &&
-          <ul className={styles.results}>
-            {
-              this.state.results.map((result) => {
-                return <Link to={`/${this.props.mode}/${result.objectid}`} className={styles.result} key={result.objectid}>
-                  {result.typename} {result.name}
-                </Link>
-              })
-            }
-          </ul>
-        }
-      </form>
-    );
-  }
+
+  return (
+    <form className={styles.container} name="search" onSubmit={handleSubmit}>
+      <div className={styles.wrapper}>
+        <input className={styles.text} type="text" name="string" value={string} onChange={handleChange} autoComplete='off' />
+        <button className={styles.submit}>
+          <img className={styles.magn_glass} src={magnGlass} alt='Искать' />
+        </button>
+      </div>
+      {
+        results.length > 0 &&
+        <ul className={styles.results}>
+          {
+            results.map((result) => {
+              return <li className={styles.result} key={result.objectid} >
+                <Link to={`/${props.mode}/${result.objectid}`} className={styles.link} onClick={handleChoose}>
+                {result.typename} {result.name}</Link>
+              </li>
+            })
+          }
+        </ul>
+      }
+    </form>
+  );
 }
 
 export default Searchbar;

@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       mode: 'adm_div',
       scrollY: 0,
+      searchString: '',
     };
 
     this.handleChangeMode = this.handleChangeMode.bind(this);
@@ -39,13 +40,16 @@ class App extends React.Component {
         <Header mode={this.state.mode} 
                 api={this.props.api}
                 scrollY={this.state.scrollY}
-                handleChangeMode={this.handleChangeMode}
-                handleGetChildren={this.handleGetChildren} />
+                handleChangeMode={this.handleChangeMode} />
         <Routes>
-          <Route path="/" element={<Navigate replace to={`/${this.state.mode}/454811`} />} />
-          <Route path={`/${this.state.mode}/:objectid`} element={<Main api={this.props.api} mode={this.state.mode} scrollY={this.state.scrollY} />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="*" element={<PageNotFound/>} />
+          <Route path="/" 
+                 element={<Navigate replace to={`/${this.state.mode}/454811`} />} />
+          <Route path={`/${this.state.mode}/:objectid`} 
+                 element={<Main api={this.props.api} mode={this.state.mode} scrollY={this.state.scrollY} />} />
+          <Route path={`/${this.state.mode}/search/:string`} 
+                 element={<Search api={this.props.api} mode={this.state.mode} scrollY={this.state.scrollY} />} />
+          <Route path="*" 
+                 element={<PageNotFound/>} />
         </Routes>
         <Footer />
       </>

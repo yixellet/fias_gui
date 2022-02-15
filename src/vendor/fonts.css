@@ -116,3 +116,17 @@
   font-weight: 900;
   src: url("./fonts/roboto-slab-v12-latin_cyrillic-900.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: 'Roboto Light';
+  font-style:  normal;
+  font-weight: 400;
+  src: url("./fonts/roboto-light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Roboto Medium';
+  font-style:  normal;
+  font-weight: 400;
+  src: url("./fonts/Roboto-Medium.woff2") format("woff2");
+}

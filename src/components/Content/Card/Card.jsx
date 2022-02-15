@@ -9,6 +9,11 @@ class Card extends React.Component {
         <div className={styles.main}>
           <p className={styles.objectid}>{this.props.data.objectid}</p>
           <h3 className={styles.title}>{this.props.data.name} <span className={styles.typeName}>{this.props.data.typename.toLowerCase()}</span></h3>
+          {
+            this.props.data.parents ?
+            <p>{this.props.data.parents[0]}</p> :
+            null
+          }
           <p className={styles.objectid}>Дочерних элементов: <span className={styles.count}>{this.props.data.children}</span></p>
         </div>
       </Link>

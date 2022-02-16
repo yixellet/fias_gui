@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import magnGlass from '../../../images/magnifying-glass.svg';
 import styles from './Searchbar.module.css';
 
@@ -16,9 +16,10 @@ function Searchbar(props) {
       })
   }
 
-  function handleChoose(event) {
+  function handleChoose(object) {
     setString('');
     setResults([])
+    navigate(`/${props.mode}/${object.objectid}`)
   }
 
   function handleSubmit(event) {
@@ -42,9 +43,8 @@ function Searchbar(props) {
         <ul className={styles.results}>
           {
             results.map((result) => {
-              return <li className={styles.result} key={result.objectid} >
-                <Link to={`/${props.mode}/${result.objectid}`} className={styles.link} onClick={handleChoose}>
-                {result.typename} {result.name}</Link>
+              return <li className={styles.result} key={result.objectid} onClick={() => handleChoose(result)}>
+                {result.typename} {result.name}
               </li>
             })
           }

@@ -84,6 +84,15 @@ class Api {
       })
   }
 
+  getHouseParents(objectid, mode) {
+    return fetch(`${this.base_url}/houseparents?objectid=${objectid}&mode=${mode}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+  }
+
   search(string, mode) {
     return fetch(`${this.base_url}/search?string=${string}&mode=${mode}`)
       .then((res) => {

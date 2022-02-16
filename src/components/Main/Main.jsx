@@ -75,16 +75,27 @@ function Main(props) {
 
   useEffect(() => {
     let isMounted = true;
-    props.api.getParents(objectid, props.mode)
-      .then((data) => {
-        if (isMounted) {
-          setParents(data)
-        }
-      });
-      return() => {
-        isMounted = false;
-      };
-  }, [objectid, props.api, props.mode])
+    switch (object.level) {
+      case '10':
+        props.api.getHouseParents(objectid, props.mode)
+          .then((data) => {
+            if (isMounted) {
+              setParents(data);
+            };
+          });
+        break;
+      default:
+        props.api.getParents(objectid, props.mode)
+          .then((data) => {
+            if (isMounted) {
+              setParents(data)
+            }
+          });
+          return() => {
+            isMounted = false;
+          };
+    }
+  }, [objectid, props.api, props.mode, object.level])
 
   useEffect(() => {
     let isMounted = true;

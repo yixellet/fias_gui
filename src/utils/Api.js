@@ -21,26 +21,8 @@ class Api {
       })
   }
 
-  getChildren(objectid, mode) {
-    return fetch(`${this.base_url}/children?objectid=${objectid}&mode=${mode}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getHouseChildren(objectid) {
-    return fetch(`${this.base_url}/housechildren?objectid=${objectid}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getRooms(objectid) {
-    return fetch(`${this.base_url}/rooms?objectid=${objectid}`)
+  getChildren(objectid, mode, level) {
+    return fetch(`${this.base_url}/children?objectid=${objectid}&mode=${mode}&level=${level}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -75,17 +57,8 @@ class Api {
       })
   }
 
-  getParents(objectid, mode) {
-    return fetch(`${this.base_url}/parents?objectid=${objectid}&mode=${mode}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-  }
-
-  getHouseParents(objectid, mode) {
-    return fetch(`${this.base_url}/houseparents?objectid=${objectid}&mode=${mode}`)
+  getParents(objectid, mode, level) {
+    return fetch(`${this.base_url}/parents?objectid=${objectid}&mode=${mode}&level=${level}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

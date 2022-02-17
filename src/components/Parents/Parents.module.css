@@ -1,5 +1,4 @@
 .parents {
-  position: fixed;
   display: flex;
   align-items: flex-start;
   max-width: calc(100vw - 250px);
@@ -10,6 +9,7 @@
 }
 
 .parentsScroll {
+  position: fixed;
   top: 0;
   left: 100px;
   padding-left: 20px;

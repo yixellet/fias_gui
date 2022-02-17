@@ -13,6 +13,7 @@ import styles from './Main.module.css';
 function Main(props) {
   let navigate = useNavigate();
   let { objectid } = useParams();
+
   const [isFetching, setIsFetching] = useState(false);
   const [levels, setLevels] = useState([]);
   const [object, setObject] = useState({});
@@ -75,65 +76,31 @@ function Main(props) {
 
   useEffect(() => {
     let isMounted = true;
-    switch (object.level) {
-      case '10':
-        props.api.getHouseParents(objectid, props.mode)
-          .then((data) => {
-            if (isMounted) {
-              setParents(data);
-            };
-          });
-        break;
-      default:
-        props.api.getParents(objectid, props.mode)
-          .then((data) => {
-            if (isMounted) {
-              setParents(data)
-            }
-          });
-          return() => {
-            isMounted = false;
-          };
-    }
+    props.api.getParents(objectid, props.mode, object.level)
+      .then((data) => {
+        if (isMounted) {
+          setParents(data)
+        }
+      });
+      return() => {
+        isMounted = false;
+      };
   }, [objectid, props.api, props.mode, object.level])
 
   useEffect(() => {
     let isMounted = true;
     setIsFetching(true)
-    if (object.level === '10') {
-      props.api.getHouseChildren(objectid)
-        .then((data) => {
-          if (isMounted) {
-            setChildren(splitByLevels(data.children, levels))
-            setIsFetching(false)
-          }
-        });
-        return() => {
-          isMounted = false;
-        };
-    } else if (object.level === '11') {
-      props.api.getRooms(objectid)
-        .then((data) => {
-          if (isMounted) {
-            setChildren(splitByLevels(data.children, levels))
-            setIsFetching(false)
-          }
-        });
-        return() => {
-          isMounted = false;
-        };
-    } else {
-      props.api.getChildren(objectid, props.mode, object.level)
-        .then((data) => {
-          if (isMounted) {
-            setChildren(splitByLevels(data.children, levels))
-            setIsFetching(false)
-          }
-        });
-        return() => {
-          isMounted = false;
-        };
-    }
+    
+    props.api.getChildren(objectid, props.mode, object.level)
+    .then((data) => {
+      if (isMounted) {
+        setChildren(splitByLevels(data.children, levels))
+        setIsFetching(false)
+      }
+    });
+    return() => {
+      isMounted = false;
+    };
   }, [object.level, objectid, props.api, props.mode, levels])
 
   return (
@@ -147,7 +114,11 @@ function Main(props) {
       }
       <div className={styles.data}>
         <Params params={params} scrollY={props.scrollY} />
-        <Navigation levels={children} scrollY={props.scrollY} />
+        {
+          levels.length > 0 ?
+          <Navigation levels={children} scrollY={props.scrollY} /> :
+          null
+        }
         <Map geometry={geometry} />
       </div>
       {
